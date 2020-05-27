@@ -1,9 +1,9 @@
 import pymysql.cursors
 
 mydb = pymysql.connect(
-    host='bank.ct1ikgzgdh96.us-east-1.rds.amazonaws.com',
-    user='admin',
-    password='adminadmin',
+    host='localhost',
+    user='root',
+    password='',
     cursorclass=pymysql.cursors.DictCursor,
     autocommit=True
 )
@@ -29,14 +29,13 @@ except:
 # author name, date, department,status
 try:
     query = "CREATE TABLE IF NOT EXISTS books(" \
-            "book_id varchar(20) PRIMARY KEY , " \
+            "book_id varchar(20) NOT NULL , " \
             "user_id varchar(50) NOT NULL, " \
             "book_name varchar(50) NOT NULL, " \
             "status varchar(10) NOT NULL, " \
-            "issue_date timestamp DEFAULT current_timestamp, " \
+            "issue_date timestamp DEFAULT current_timestamp , " \
             "author_name VARCHAR(30) NOT NULL, " \
-            "department varchar(20) NOT NULL, " \
-            "issue_status varchar(20) NOT NULL" \
+            "department varchar(20) NOT NULL" \
             ")"
     mycursor.execute(query)
     print("Table created")

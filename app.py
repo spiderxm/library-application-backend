@@ -4,9 +4,9 @@ import pymysql.cursors
 app = Flask(__name__)
 try:
     mydb = pymysql.connect(
-        host='bank.ct1ikgzgdh96.us-east-1.rds.amazonaws.com',
-        user='admin',
-        password='adminadmin',
+        host='localhost',
+        user='root',
+        password='',
         cursorclass=pymysql.cursors.DictCursor,
         autocommit=True
     )
@@ -78,6 +78,65 @@ def returned_books(user_id):
         return jsonify({
             "status_code": 200,
             "error": "user_id does not exist or is incorrect please try again"
+        })
+
+
+@app.route('/add_book', methods=['POST'])
+def add_book():
+    try:
+        data = request.json
+        print(data)
+        # user_id = data['user_id']
+        # book_id = data['book_id']
+        # book_name = data['book_name']
+        # status = data['status']
+        # author_name = data['author_name']
+        # department = data['department']
+        # print(department)
+        # query = "INSERT INTO books(book_id,user_id,book_name,status,author_name,department) values " \
+        #         "(" \
+        #         "'{}'," \
+        #         "'{}'," \
+        #         "'{}'," \
+        #         "'{}'," \
+        #         "'{}'," \
+        #         "'{}'" \
+        #         ")".format(book_id,
+        #                    user_id,
+        #                    book_name,
+        #                    status,
+        #                    author_name,
+        #                    department)
+        # print(query)
+        # mycursor.execute(query)
+        return jsonify({
+            "status_code": 200,
+            "message": "Book successfully entered"
+        })
+    except:
+        return jsonify({
+            "status_code": 200,
+            "error": "Book was not entered"
+        })
+
+
+@app.route('/deletebook', methods=['Delete'])
+def delete_books():
+    try:
+        data = request.json
+        user_id = data['user_id']
+        book_id = data['book_id']
+        query = "UPDATE books SET status = 'returned' where user_id = '{}' and book_id = '{}'".format(user_id, book_id)
+        mycursor.execute(query)
+        return jsonify({
+            "status_code": 200,
+            "message": "Book was not returned"
+        })
+    except:
+        print("Error")
+        return jsonify({
+            "status_code": 200,
+            "error": "Book was not deleted"
         })
 
 
