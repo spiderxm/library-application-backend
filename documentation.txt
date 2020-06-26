@@ -1,0 +1,39 @@
+/add_book post request
+route to add book
+send json data in the format
+example
+{
+    "user_id": "ysaduEFYIxdeHB0nH9W3IprSHbe2",
+    "book_id":"1jjd",
+    "book_name": "Mein kamf",
+    "issue_date":"2020-06-12",
+    "status": "issued",
+    "author_name":"hitler",
+    "department": "library"
+}
+
+user_id is firebase id
+
+
+/returned_books/user_id   get request
+
+returned books
+
+/issued_books/user_id    get request
+
+issued books
+
+/books/user_id    get request
+
+all books
+
+
+/delete_books       delete request
+
+purpose is to return books
+
+
+{
+"user_id": "ysaduEFYIxdeHB0nH9W3IprSHbe2",
+    "book_id":"1jjd"
+    }

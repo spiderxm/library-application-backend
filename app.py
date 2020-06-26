@@ -69,7 +69,7 @@ def currently_issued_books(user_id):
 @app.route('/returned_books/<string:user_id>')
 def returned_books(user_id):
     try:
-        query = "SELECT * FROM books where user_id = '{}' and issue_status = 'returned'".format(user_id)
+        query = "SELECT * FROM books where user_id = '{}' and status = 'returned'".format(user_id)
         mycursor.execute(query)
         book_details = []
         book_detail = mycursor.fetchone()
