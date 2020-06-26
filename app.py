@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import pymysql.cursors
 from flask_cors import CORS
+from datetime import datetime
 app = Flask(__name__)
 CORS(app)
 try:
@@ -95,9 +96,10 @@ def add_book():
         issue_date = data['issue_date']
         author_name = data['author_name']
         department = data['department']
-
+        issue_date = datetime.strptime(issue_date,'%Y-%m-%d')
         query = "INSERT INTO books(book_id,user_id,book_name,status,issue_date,author_name,department) values " \
                 "(" \
+                "'{}'," \
                 "'{}'," \
                 "'{}'," \
                 "'{}'," \
@@ -119,7 +121,8 @@ def add_book():
             "book_id": book_id,
             "user_id": user_id
         })
-    except:
+    except Exception as e:
+        print(e)
         return jsonify({
             "status_code": 200,
             "error": "Book was not entered"

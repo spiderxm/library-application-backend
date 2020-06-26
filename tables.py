@@ -33,7 +33,7 @@ try:
             "user_id varchar(50) NOT NULL, " \
             "book_name varchar(50) NOT NULL, " \
             "status varchar(10) NOT NULL, " \
-            "issue_date date NOT NULL , " \
+            "issue_date timestamp NOT NULL , " \
             "author_name VARCHAR(30) NOT NULL, " \
             "department varchar(20) NOT NULL," \
             "PRIMARY KEY (user_id, book_id, status))"
