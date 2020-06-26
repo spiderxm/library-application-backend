@@ -4,9 +4,9 @@ import pymysql.cursors
 app = Flask(__name__)
 try:
     mydb = pymysql.connect(
-        host='localhost',
+        host='34.71.242.51',
         user='root',
-        password='',
+        password='100pipers',
         cursorclass=pymysql.cursors.DictCursor,
         autocommit=True
     )
@@ -48,7 +48,8 @@ def books(user_id):
 @app.route('/issued_books/<string:user_id>')
 def currently_issued_books(user_id):
     try:
-        query = "SELECT * FROM books where user_id = '{}' and issue_status = 'issued'".format(user_id)
+        print(user_id)
+        query = "SELECT * FROM books where user_id = '{}' and status = 'issued'".format(user_id)
         mycursor.execute(query)
         book_details = []
         book_detail = mycursor.fetchone()
@@ -86,32 +87,34 @@ def add_book():
     try:
         data = request.json
         print(data)
-        # user_id = data['user_id']
-        # book_id = data['book_id']
-        # book_name = data['book_name']
-        # status = data['status']
-        # author_name = data['author_name']
-        # department = data['department']
-        # print(department)
-        # query = "INSERT INTO books(book_id,user_id,book_name,status,author_name,department) values " \
-        #         "(" \
-        #         "'{}'," \
-        #         "'{}'," \
-        #         "'{}'," \
-        #         "'{}'," \
-        #         "'{}'," \
-        #         "'{}'" \
-        #         ")".format(book_id,
-        #                    user_id,
-        #                    book_name,
-        #                    status,
-        #                    author_name,
-        #                    department)
-        # print(query)
-        # mycursor.execute(query)
+        user_id = data['user_id']
+        book_id = data['book_id']
+        book_name = data['book_name']
+        status = data['status']
+        author_name = data['author_name']
+        department = data['department']
+
+        query = "INSERT INTO books(book_id,user_id,book_name,status,author_name,department) values " \
+                "(" \
+                "'{}'," \
+                "'{}'," \
+                "'{}'," \
+                "'{}'," \
+                "'{}'," \
+                "'{}'" \
+                ")".format(book_id,
+                           user_id,
+                           book_name,
+                           status,
+                           author_name,
+                           department)
+        print(query)
+        mycursor.execute(query)
         return jsonify({
             "status_code": 200,
-            "message": "Book successfully entered"
+            "message": "Book successfully entered",
+            "book_id": book_id,
+            "user_id": user_id
         })
     except:
         return jsonify({
@@ -130,7 +133,7 @@ def delete_books():
         mycursor.execute(query)
         return jsonify({
             "status_code": 200,
-            "message": "Book was not returned"
+            "message": "Book was successfully returned"
         })
     except:
         print("Error")
