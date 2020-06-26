@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify
 import pymysql.cursors
-
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app)
 try:
     mydb = pymysql.connect(
         host='34.71.242.51',
@@ -91,10 +92,11 @@ def add_book():
         book_id = data['book_id']
         book_name = data['book_name']
         status = data['status']
+        issue_date = data['issue_date']
         author_name = data['author_name']
         department = data['department']
 
-        query = "INSERT INTO books(book_id,user_id,book_name,status,author_name,department) values " \
+        query = "INSERT INTO books(book_id,user_id,book_name,status,issue_date,author_name,department) values " \
                 "(" \
                 "'{}'," \
                 "'{}'," \
@@ -106,6 +108,7 @@ def add_book():
                            user_id,
                            book_name,
                            status,
+                           issue_date,
                            author_name,
                            department)
         print(query)
