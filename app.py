@@ -133,6 +133,7 @@ def add_book():
 def delete_books():
     try:
         data = request.json
+        print(data)
         user_id = data['user_id']
         book_id = data['book_id']
         query = "UPDATE books SET status = 'returned' where user_id = '{}' and book_id = '{}'".format(user_id, book_id)
