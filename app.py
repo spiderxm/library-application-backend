@@ -129,14 +129,13 @@ def add_book():
         })
 
 
-@app.route('/deletebook', methods=['Delete'])
-def delete_books():
+@app.route('/deletebook/<string:userid>/<string:bookid>', methods=['Delete'])
+def delete_books(userid, bookid):
     try:
-        data = request.json
-        print(data)
-        user_id = data['user_id']
-        book_id = data['book_id']
+        user_id = userid
+        book_id = bookid
         query = "UPDATE books SET status = 'returned' where user_id = '{}' and book_id = '{}'".format(user_id, book_id)
+        print(query)
         mycursor.execute(query)
         return jsonify({
             "status_code": 200,
