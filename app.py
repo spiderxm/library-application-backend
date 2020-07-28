@@ -6,7 +6,7 @@ app = Flask(__name__)
 CORS(app)
 try:
     mydb = pymysql.connect(
-        host='34.71.242.51',
+        host='***.***.***.***',
         user='root',
         password='100pipers',
         cursorclass=pymysql.cursors.DictCursor,
